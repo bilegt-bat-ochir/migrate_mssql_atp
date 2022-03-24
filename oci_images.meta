@@ -1,0 +1,31 @@
+variable "marketplace_source_images" {
+  type = map(object({
+    ocid = string
+    is_pricing_associated = bool
+    compatible_shapes = set(string)
+  }))
+
+  default = {
+	  image = {
+      ocid = "ocid1.image.oc1..aaaaaaaahbr3iqsvbr5r5n7jp57xb45j46gca2otup4jsvjdqaw4uumeujwa"
+      is_pricing_associated = true
+      compatible_shapes = []
+    }
+  }
+}
+
+variable "marketplace_source_images2" {
+  type = map(object({
+    ocid = string
+    is_pricing_associated = bool
+    compatible_shapes = set(string)
+  }))
+ 
+  default = {
+      image = {
+      ocid = "ocid1.image.oc1..aaaaaaaapwls5iram3xa6rd4hfhrjaoihotponz64r3r7w74q4qrhv67fspq"
+      is_pricing_associated = true
+      compatible_shapes = []
+    }
+  }
+}

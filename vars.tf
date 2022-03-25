@@ -209,7 +209,7 @@ variable "ogg_oracle_boot_size_in_gbs" {
   default = "50"
 }
 variable "ogg_oracle_display_name" {
-  default = "GG Microservices ORACLE21.5"
+  default = "GG Microservices ORACLE 21.5"
 }
 variable "ogg_oracle_hostname_label" {
   default = "ogg21cora"

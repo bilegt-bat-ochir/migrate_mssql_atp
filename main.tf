@@ -32,7 +32,7 @@ module "ogg_mssql_cacheManager_block_volume" {
 	existing_volume_id  = var.ogg_mssql_cacheManager_volume_id
 }
 module "ogg_mssql_image" {
-	source            = "./ogg_mssql_image"
+	source            = "./ogg_mssqlimage"
 	compartment_ocid  = var.image_compartment_id
 	market_image_id   = local.mp_listing_resource_id2
 	custom_image_name = "ogg-${var.ogg_mssql_version}-${var.ogg_mssql_edition}-${var.ogg_mssql_dbms}"

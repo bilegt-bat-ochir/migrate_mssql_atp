@@ -15,7 +15,7 @@ resource "oci_core_instance" "vm2" {
   create_vnic_details {
     subnet_id        = var.subnet_id
     display_name     = var.display_name
-    assign_public_ip = false
+    assign_public_ip = var.assign_public_ip
     hostname_label   = var.hostname_label
   }
 

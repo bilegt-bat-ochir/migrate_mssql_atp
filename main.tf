@@ -40,7 +40,7 @@ module "ogg_mssql_image" {
 
 module "ogg_mssql_compute" {
 	source                	= "./ogg_mssql"
-	deployments            = ("[ {\"name\":\"${var.deployment_name}\"} ]")
+	deployments            = ("[ {\"name\":\"${var.ogg_mssql_deployment_name}\"} ]")
 	compartment_id      	= var.compartment_ocid
 	availability_domain   	= data.oci_identity_availability_domains.ads.availability_domains[0].name
 	ssh_public_key			= file("~/.ssh/oci.pub")
@@ -55,6 +55,20 @@ module "ogg_mssql_compute" {
 	cacheManager_volume_id 	= module.ogg_mssql_cacheManager_block_volume.volume_id
 	subnet_id             	= oci_core_subnet.holvcn_public_subnet.id
 	assign_public_ip      	= var.ogg_mssql_assign_public_ip
+}
+
+module "atp" {
+	source          = "./atp"
+	compartment_id  = var.compartment_ocid
+	display_name 	= var.atp_display_name
+	db_name         = "hol${random_string.deploy_id.result}"
+	db_workload  	= var.atp_workload
+	is_free_tier	= var.atp_is_free_tier
+	db_version 		= var.atp_db_version
+	cpu_core_count	= var.atp_ocpu_count
+	data_storage_size_in_tbs 	= var.atp_storage_size
+	license_model	= var.atp_license_model
+	generate_type	= var.atp_wallet_generate_type
 }
 
 module "ogg_oracle_swap_block_volume" {
@@ -97,23 +111,10 @@ module "ogg_oracle_image" {
 	market_image_id   = local.mp_listing_resource_id
 	custom_image_name = "ogg-${var.ogg_oracle_version}-${var.ogg_oracle_edition}-${var.ogg_oracle_dbms}"
 }
-module "atp" {
-	source          = "./atp"
-	compartment_id  = var.compartment_ocid
-	display_name 	= var.atp_display_name
-	db_name         = "hol${random_string.deploy_id.result}"
-	db_workload  	= var.atp_workload
-	is_free_tier	= var.atp_is_free_tier
-	db_version 	= var.atp_db_version
-	cpu_core_count	= var.atp_ocpu_count
-	data_storage_size_in_tbs 	= var.atp_storage_size
-	license_model	= var.atp_license_model
-	generate_type	= var.atp_wallet_generate_type
-}
 module "ogg_oracle_compute" {
 	depends_on 		= [module.atp]
 	source           = "./ogg_oracle"
-	deployments            = ("[ {\"name\":\"${var.deployment_name}\"} ]")
+	deployments            = ("[ {\"name\":\"${var.ogg_oracle_deployment_name}\"} ]")
   	deployment_adb_wallet = module.atp.wallet
   	compartment_id        = var.compartment_ocid
   	availability_domain   = data.oci_identity_availability_domains.ads.availability_domains[0].name

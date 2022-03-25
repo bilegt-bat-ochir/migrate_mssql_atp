@@ -219,16 +219,25 @@ variable "ogg_oracle_custom_volume_sizes" {
 }
 ################################ OGG ORACLE DEPLOYMENTS
 
-variable "deployments_json" {
+variable "ogg_oracle_deployments_json" {
   default = ""
 }
 
-variable "deployment_name" {
+variable "ogg_oracle_deployment_name" {
+  default = "GG_ORACLE"
+}
+
+variable "ogg_oracle_deployment_adb" {
+  default = true
+}
+
+################################ OGG MSSQL DEPLOYMENTS
+variable "ogg_mssql_deployments_json" {
   default = ""
 }
 
-variable "deployment_adb" {
-  default = false
+variable "ogg_mssql_deployment_name" {
+  default = "GG_MSSQL"
 }
 
 variable "deployment_adb_compartment_id" {
